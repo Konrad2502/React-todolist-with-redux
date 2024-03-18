@@ -33,6 +33,8 @@ export const addList = payload => ({type: 'ADD_LIST', payload});
 
 export const toggleCardFavorite = cardId => ({ type: 'TOGGLE_CARD_FAVORITE', payload: cardId });
 
+export const removeCard = cardId => ({ type: 'REMOVE_CARD', payload: cardId });
+
 
 
 
@@ -52,7 +54,9 @@ return { ...state, columns: [...state.columns, newColumn] };
  case 'ADD_LIST':
   return {...state, lists: [...state.lists, {...action.payload, id: shortid()}], columns: [...state.columns], cards: [...state.cards]};
   case 'TOGGLE_CARD_FAVORITE': 
-  return { ...state, cards: state.cards.map(card => (card.id === action.payload) ? { ...card, isFavorite: !card.isFavorite } : card) }; 
+  return { ...state, cards: state.cards.map(card => (card.id === action.payload) ? { ...card, isFavorite: !card.isFavorite } : card) };
+  case 'REMOVE_CARD':
+    return {...state, cards: state.cards.filter(card => card.id !== action.payload)} 
   default: 
  return state;  };
  
